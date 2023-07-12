@@ -2,6 +2,7 @@ pub mod ember {
     //use canvas::digital_canvas;
     use colorgrad::Color;
     use rand::prelude::*;
+    use rand_distr::{Distribution, Normal};
 
     //This structure uses state which is any parameter that implements the trait FireplaceState
 
@@ -58,7 +59,7 @@ pub mod ember {
             Fireplace {
                 state: FireplaceState::Off,
                 settings: FireplaceSettings::new(),
-                embers: (0..12).map(|_x| Ember::new()).collect(),
+                embers: (0..20).map(|_x| Ember::new()).collect(),
                 heatmap: [[0.0; 10]; 10],
             }
         }
@@ -91,7 +92,7 @@ pub mod ember {
                     let mut cum_delay = 0;
                     for ember in &mut self.embers.iter_mut() {
                         let jitter: f32 = rng.gen();
-                        cum_delay = cum_delay + (jitter * 40.0).round() as u16;
+                        cum_delay = cum_delay + (jitter * 30.0).round() as u16;
                         ember.prime(self.settings.ember_settings);
                         ember.delay(cum_delay);
                     }
@@ -177,7 +178,7 @@ pub mod ember {
                 ember_settings: EmberSettings {
                     respawn_enabled: true,
                     sigma: 0.0,
-                    heat_decay: 1.2,
+                    heat_decay: 1.4,
                     max_heat: 100.0,
                 },
                 max_embers: 10,
@@ -187,7 +188,7 @@ pub mod ember {
                         Color::from_rgba8(161, 10, 0, 255),
                         Color::from_rgba8(218, 31, 5, 255),
                         Color::from_rgba8(243, 60, 4, 255),
-                        Color::from_rgba8(254, 101, 13, 255),
+                        Color::from_rgba8(254, 131, 13, 255),
                         Color::from_rgba8(255, 183, 31, 255),
                         Color::from_rgba8(255, 227, 93, 255),
                     ])
@@ -262,10 +263,18 @@ pub mod ember {
             let jitter: f32 = rng.gen();
             let jitter2: f32 = rng.gen();
             let jitter3: f32 = rng.gen();
-            self.status = EmberStatusKind::Primed((jitter * 10.0).round() as u16);
+
+            let normal2 = Normal::new(0.0, 1.0).unwrap();
+            let jitter2 = normal2.sample(&mut rand::thread_rng());
+
+            let normal3 = Normal::new(0.4, 0.2).unwrap();
+            let jitter3 = normal3.sample(&mut rand::thread_rng());
+
+            self.status = EmberStatusKind::Primed((jitter * 20.0).round() as u16);
             self.y = 15.0;
-            self.x = 4.0 + 4.0 * (jitter2 - 0.5);
-            self.heat = settings.max_heat * jitter3;
+            //self.x = 4.0 + 4.0 * (jitter2 - 0.5);
+            self.x = 4.0 + jitter2;
+            self.heat = settings.max_heat *(0.3 + jitter3);
         }
     }
 }
