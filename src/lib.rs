@@ -274,7 +274,7 @@ pub mod ember {
             self.y = 15.0;
             //self.x = 4.0 + 4.0 * (jitter2 - 0.5);
             self.x = 4.0 + jitter2;
-            self.heat = settings.max_heat *(0.3 + jitter3);
+            self.heat = settings.max_heat * (0.3 + jitter3);
         }
     }
 }
