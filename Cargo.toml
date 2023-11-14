@@ -10,3 +10,9 @@ colorgrad = "0.6.2"
 canvas = { path = "../canvas" }
 rand = "0.8.5"
 rand_distr = "0.4.3"
+
+[dev-dependencies]
+canvas = { path = "../canvas" }
+nannou = "0.18.1"
+nannou_egui = "0.5.0"
+nannou_conrod = "0.18.0"
