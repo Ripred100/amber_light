@@ -1,6 +1,6 @@
 
 use amber_light::fireplace::Fireplace;
-use canvas::digital_canvas::*;
+use canvy::digital_canvas::*;
 use nannou::prelude::*;
 //use std::time;
 //use nannou_conrod::prelude::*;
