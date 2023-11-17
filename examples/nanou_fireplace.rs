@@ -20,9 +20,7 @@ fn main() {
 }
 
 fn update(_app: &App, model: &mut Model, _update: Update) {
-    //println!("{:?}", model.fireplace.settings.sigma);
-    //model.fireplace.update_embers();
-    //model.fireplace.find_heatmap();
+
     model.fireplace.step();
     let g = &model.fireplace.settings.g;
     for (j, column) in &mut model.my_canvas.pixels.iter_mut().enumerate() {
@@ -45,24 +43,6 @@ fn model(app: &App) -> Model {
         .key_pressed(key_pressed)
         .build()
         .unwrap();
-    // let ui_window = app
-    //     .new_window()
-    //     .title(app.exe_name().unwrap() + " controls")
-    //     .size(300, 200)
-    //     .view(ui_view)
-    //     .raw_event(raw_ui_event)
-    //     .key_pressed(key_pressed)
-    //     .build()
-    //     .unwrap();
-    // let window_id = app
-    //     .new_window()
-    //     .view(view)
-    //     .raw_event(raw_window_event)
-    //     .build()
-    //     .unwrap();
-    // let window = app.window(window_id).unwrap();
-
-    //let egui = Egui::from_window(&window);
 
     let mut model = Model {
         _main_window: window,
@@ -77,8 +57,6 @@ fn raw_window_event(_app: &App, _model: &mut Model, _event: &nannou::winit::even
     // Let egui handle things like keyboard and mouse input.
     //model.egui.handle_raw_event(event);
 }
-
-fn _raw_ui_event(_app: &App, _model: &mut Model, _event: &nannou_conrod::RawWindowEvent) {}
 
 fn key_pressed(_app: &App, model: &mut Model, key: Key) {
     match key {

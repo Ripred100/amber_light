@@ -112,6 +112,9 @@ impl Fireplace {
                             //Find distance of the ember to each space
                             let distance_squared =
                                 (i as f32 - ember.x).powf(2.0) + (j as f32 - ember.y).powf(2.0);
+                                // -------------------------------------------
+                                //This section is a disaster. It works visually, but there has to be a cleaner function that works just as well.
+                                // -------------------------------------------
                             //Equation to turn distance into the contributed "temperature" of the space
                             *space = *space
                                 //Scaling coefficient From 0 to 1. (ember.heat has a nominal range of 100-0)
