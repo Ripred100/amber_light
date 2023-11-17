@@ -56,7 +56,7 @@ impl FireplaceSettings {
 impl Fireplace {
     pub fn new() -> Self {
         Fireplace {
-            state: FireplaceState::Off,
+            state: FireplaceState::Starting,
             settings: FireplaceSettings::new(),
             embers: (0..20).map(|_x| Ember::new()).collect(),
             heatmap: [[0.0; 10]; 10],
