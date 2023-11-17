@@ -61,12 +61,16 @@ fn raw_window_event(_app: &App, _model: &mut Model, _event: &nannou::winit::even
 fn key_pressed(_app: &App, model: &mut Model, key: Key) {
     match key {
         Key::E => {
-            model.fireplace.settings.ember_settings.sigma =
-                model.fireplace.settings.ember_settings.sigma + 0.1
+            model.fireplace.settings.ember_settings.max_heat =
+                model.fireplace.settings.ember_settings.max_heat + 5.0;
         }
         Key::Q => {
-            model.fireplace.settings.ember_settings.sigma =
-                model.fireplace.settings.ember_settings.sigma - 0.1
+            model.fireplace.settings.ember_settings.max_heat =
+                model.fireplace.settings.ember_settings.max_heat - 5.0;
+            if model.fireplace.settings.ember_settings.max_heat < 0.0{
+                model.fireplace.settings.ember_settings.max_heat = 0.0;
+            }
+            
         }
         Key::S => model.fireplace.off(),
         Key::W => model.fireplace.start(),
