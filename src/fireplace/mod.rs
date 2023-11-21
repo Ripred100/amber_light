@@ -1,11 +1,12 @@
 use colorgrad::Color;
 use rand::prelude::*;
+use canvy::digital_canvas::*;
 //use rand_distr::{Distribution, Normal};
 use super::ember::*;
 
 pub struct Fireplace {
     state: FireplaceState,
-    pub settings: FireplaceSettings,
+    settings: FireplaceSettings,
     embers: Vec<Ember>,
     pub heatmap: [[f32; 10]; 10],
 }
@@ -62,6 +63,24 @@ impl Fireplace {
             heatmap: [[0.0; 10]; 10],
         }
     }
+
+    pub fn pixel_fom_heatmap(&self,i: usize, j: usize) -> Option<RgbPixel>{
+        if i >= 10 {
+            return None
+        }
+        if j >= 10 {
+            return None
+        }
+        //let g = self.settings.g;
+        let color = self.settings.g.at(self.heatmap[i][j] as f64).to_rgba8();
+        Some(RgbPixel {
+            red: color[0],
+            green: color[1],
+            blue: color[2],
+        })
+        
+    }
+
     pub fn off(&mut self) {
         //TODO Wind down????
         //self.state = FireplaceState::Off;
