@@ -9,7 +9,7 @@ use nannou::prelude::*;
 struct Model {
     _main_window: WindowId,
     my_canvas: DigitalCanvas,
-    fireplace: Fireplace,
+    fireplace: Fireplace<10>,
 }
 
 fn main() {

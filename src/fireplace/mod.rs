@@ -4,11 +4,11 @@ use canvy::digital_canvas::*;
 //use rand_distr::{Distribution, Normal};
 use super::ember::*;
 
-pub struct Fireplace {
+pub struct Fireplace<const N: usize> {
     state: FireplaceState,
     settings: FireplaceSettings,
     embers: Vec<Ember>,
-    pub heatmap: [[f32; 10]; 10],
+    pub heatmap: [[f32; N]; N],
 }
 
 pub struct FireplaceSettings {
@@ -54,13 +54,14 @@ impl FireplaceSettings {
     }
 }
 
-impl Fireplace {
+impl<const N: usize> Fireplace<N> {
+    
     pub fn new() -> Self {
         Fireplace {
             state: FireplaceState::Off,
             settings: FireplaceSettings::new(),
             embers: (0..20).map(|_x| Ember::new()).collect(),
-            heatmap: [[0.0; 10]; 10],
+            heatmap: [[0.0; N]; N],
         }
     }
 
@@ -121,7 +122,7 @@ impl Fireplace {
     // FIND_HEATMAP()
     // Uses the x,y position of embers in the Vec<embers to generate a map of "Heat" that later gets turned into RGB and displayed
     pub fn find_heatmap(&mut self) {
-        self.heatmap = [[0.0; 10]; 10];
+        self.heatmap = [[0.0; N]; N];
         let sigma = self.settings.ember_settings.sigma;
         for (j, row) in &mut self.heatmap.iter_mut().enumerate() {
             for (i, space) in row.iter_mut().enumerate() {
