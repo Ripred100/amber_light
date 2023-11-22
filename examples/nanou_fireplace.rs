@@ -8,7 +8,7 @@ use nannou::prelude::*;
 
 struct Model {
     _main_window: WindowId,
-    my_canvas: DigitalCanvas,
+    my_canvas: DigitalCanvas<10>,
     fireplace: Fireplace<10>,
 }
 
