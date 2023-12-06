@@ -2,6 +2,7 @@
 use amber_light::fireplace::Fireplace;
 use canvy::digital_canvas::*;
 use nannou::prelude::*;
+use std::{thread, time};
 //use std::time;
 //use nannou_conrod::prelude::*;
 //use nannou_egui;
@@ -20,7 +21,8 @@ fn main() {
 }
 
 fn update(_app: &App, model: &mut Model, _update: Update) {
-
+    let twenty_millis = time::Duration::from_millis(20);
+    thread::sleep(twenty_millis);
     model.fireplace.step();
     for (j, column) in &mut model.my_canvas.pixels.iter_mut().enumerate() {
         for (i, pixel) in &mut column.iter_mut().enumerate() {

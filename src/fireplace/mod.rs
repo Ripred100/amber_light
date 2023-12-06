@@ -34,7 +34,7 @@ impl FireplaceSettings {
                 respawn_enabled: true,
                 sigma: 0.0,
                 heat_decay: 1.4,
-                max_heat: 100.0,
+                max_heat: 70.0,
             },
             max_embers: 10,
             g: colorgrad::CustomGradient::new()
@@ -59,7 +59,7 @@ impl<const N: usize> Fireplace<N> {
         Fireplace {
             state: FireplaceState::Starting,
             settings: FireplaceSettings::new(),
-            embers: (0..20).map(|_x| Ember::new()).collect(),
+            embers: (0..15).map(|_x| Ember::new()).collect(),
             heatmap: [[0.0; N]; N],
         }
     }
