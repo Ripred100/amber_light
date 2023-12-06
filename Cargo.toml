@@ -12,6 +12,6 @@ rand = "0.8.5"
 rand_distr = "0.4.3"
 
 [dev-dependencies]
-canvy = "0.2.0"
+canvy = "0.2.5"
 nannou = "0.18.1"
 

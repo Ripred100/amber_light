@@ -54,8 +54,8 @@ impl FireplaceSettings {
     }
 }
 
-impl Fireplace {
-    pub fn new() -> Fireplace {
+impl<const N: usize> Fireplace<N> {
+    pub fn new() -> Fireplace<N> {
         Fireplace {
             state: FireplaceState::Starting,
             settings: FireplaceSettings::new(),
@@ -65,10 +65,10 @@ impl Fireplace {
     }
 
     pub fn pixel_fom_heatmap(&self,i: usize, j: usize) -> Option<RgbPixel>{
-        if i >= 10 {
+        if i >= N {
             return None
         }
-        if j >= 10 {
+        if j >= N {
             return None
         }
         //let g = self.settings.g;
