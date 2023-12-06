@@ -8,8 +8,8 @@ use nannou::prelude::*;
 
 struct Model {
     _main_window: WindowId,
-    my_canvas: DigitalCanvas,
-    fireplace: Fireplace,
+    my_canvas: DigitalCanvas<10>,
+    fireplace: Fireplace<10>,
 }
 
 fn main() {
@@ -22,11 +22,9 @@ fn main() {
 fn update(_app: &App, model: &mut Model, _update: Update) {
 
     model.fireplace.step();
-    let g = &model.fireplace.settings.g;
     for (j, column) in &mut model.my_canvas.pixels.iter_mut().enumerate() {
         for (i, pixel) in &mut column.iter_mut().enumerate() {
-            let color = g.at(model.fireplace.heatmap[i][j] as f64).to_rgba8();
-            pixel.set_rgb((color[0], color[1], color[2]));
+            *pixel = model.fireplace.pixel_fom_heatmap(i,j).unwrap();
             //pixel.cycle();
         }
     }
@@ -60,16 +58,10 @@ fn raw_window_event(_app: &App, _model: &mut Model, _event: &nannou::winit::even
 fn key_pressed(_app: &App, model: &mut Model, key: Key) {
     match key {
         Key::E => {
-            model.fireplace.settings.ember_settings.max_heat =
-                model.fireplace.settings.ember_settings.max_heat + 5.0;
+            unimplemented!();
         }
         Key::Q => {
-            model.fireplace.settings.ember_settings.max_heat =
-                model.fireplace.settings.ember_settings.max_heat - 5.0;
-            if model.fireplace.settings.ember_settings.max_heat < 0.0{
-                model.fireplace.settings.ember_settings.max_heat = 0.0;
-            }
-            
+            unimplemented!();
         }
         Key::S => model.fireplace.off(),
         Key::W => model.fireplace.start(),

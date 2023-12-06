@@ -1,13 +1,14 @@
 use colorgrad::Color;
 use rand::prelude::*;
+use canvy::digital_canvas::*;
 //use rand_distr::{Distribution, Normal};
 use super::ember::*;
 
-pub struct Fireplace {
+pub struct Fireplace<const N: usize> {
     state: FireplaceState,
-    pub settings: FireplaceSettings,
+    settings: FireplaceSettings,
     embers: Vec<Ember>,
-    pub heatmap: [[f32; 10]; 10],
+    pub heatmap: [[f32; N]; N],
 }
 
 pub struct FireplaceSettings {
@@ -59,9 +60,27 @@ impl Fireplace {
             state: FireplaceState::Starting,
             settings: FireplaceSettings::new(),
             embers: (0..20).map(|_x| Ember::new()).collect(),
-            heatmap: [[0.0; 10]; 10],
+            heatmap: [[0.0; N]; N],
         }
     }
+
+    pub fn pixel_fom_heatmap(&self,i: usize, j: usize) -> Option<RgbPixel>{
+        if i >= 10 {
+            return None
+        }
+        if j >= 10 {
+            return None
+        }
+        //let g = self.settings.g;
+        let color = self.settings.g.at(self.heatmap[i][j] as f64).to_rgba8();
+        Some(RgbPixel {
+            red: color[0],
+            green: color[1],
+            blue: color[2],
+        })
+        
+    }
+
     pub fn off(&mut self) {
         //TODO Wind down????
         //self.state = FireplaceState::Off;
@@ -101,8 +120,8 @@ impl Fireplace {
     }
     // FIND_HEATMAP()
     // Uses the x,y position of embers in the Vec<embers to generate a map of "Heat" that later gets turned into RGB and displayed
-    fn find_heatmap(&mut self) {
-        self.heatmap = [[0.0; 10]; 10];
+    pub fn find_heatmap(&mut self) {
+        self.heatmap = [[0.0; N]; N];
         let sigma = self.settings.ember_settings.sigma;
         for (j, row) in &mut self.heatmap.iter_mut().enumerate() {
             for (i, space) in row.iter_mut().enumerate() {
