@@ -54,11 +54,10 @@ impl FireplaceSettings {
     }
 }
 
-impl<const N: usize> Fireplace<N> {
-    
-    pub fn new() -> Self {
+impl Fireplace {
+    pub fn new() -> Fireplace {
         Fireplace {
-            state: FireplaceState::Off,
+            state: FireplaceState::Starting,
             settings: FireplaceSettings::new(),
             embers: (0..20).map(|_x| Ember::new()).collect(),
             heatmap: [[0.0; N]; N],
