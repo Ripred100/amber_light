@@ -2,6 +2,10 @@
 name = "amber_light"
 version = "0.1.0"
 edition = "2021"
+authors = ["Anuar <anuarsaenger.2001@gmail.com>"]
+description = "A crate built on canvy that implements a decorative fireplace animation"
+repository = "https://github.com/Ripred100/amber_light"
+license = "MIT OR Apache-2.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
