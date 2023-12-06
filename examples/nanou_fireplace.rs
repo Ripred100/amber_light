@@ -44,12 +44,11 @@ fn model(app: &App) -> Model {
         .build()
         .unwrap();
 
-    let mut model = Model {
+    let model = Model {
         _main_window: window,
         my_canvas: DigitalCanvas::new(),
         fireplace: Fireplace::new(),
     };
-    model.fireplace.find_heatmap();
     return model;
 }
 

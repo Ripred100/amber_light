@@ -54,7 +54,7 @@ impl FireplaceSettings {
 }
 
 impl Fireplace {
-    pub fn new() -> Self {
+    pub fn new() -> Fireplace {
         Fireplace {
             state: FireplaceState::Starting,
             settings: FireplaceSettings::new(),
@@ -101,7 +101,7 @@ impl Fireplace {
     }
     // FIND_HEATMAP()
     // Uses the x,y position of embers in the Vec<embers to generate a map of "Heat" that later gets turned into RGB and displayed
-    pub fn find_heatmap(&mut self) {
+    fn find_heatmap(&mut self) {
         self.heatmap = [[0.0; 10]; 10];
         let sigma = self.settings.ember_settings.sigma;
         for (j, row) in &mut self.heatmap.iter_mut().enumerate() {
